@@ -1,5 +1,5 @@
 enum GameStageEnum {
-  SelectionStage,
-  PlayStage,
-  EndStage,
+  selectionStage,
+  playStage,
+  endStage,
 }

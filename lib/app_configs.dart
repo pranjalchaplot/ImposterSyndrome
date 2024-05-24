@@ -10,6 +10,13 @@ class AppConfigs {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+  static TextStyle textStyle = const TextStyle(
+    fontFamily: 'ITCBenguiat',
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static Color cardColor = Colors.white;
+  static Color imposterCardColor = Colors.red;
 
   static PreferredSize getAppBar(double statusBarHeight, bool showLogo) {
     return PreferredSize(
@@ -26,7 +33,7 @@ class AppConfigs {
                 )
               : null,
         ),
-        backgroundColor: Color.fromARGB(0, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         centerTitle: true,
         automaticallyImplyLeading: false,
         shape: const RoundedRectangleBorder(
@@ -36,5 +43,18 @@ class AppConfigs {
         ),
       ),
     );
+  }
+
+  static int getRoundDuration(String roundLength) {
+    switch (roundLength) {
+      case '30 seconds':
+        return 30;
+      case '1 minute':
+        return 60;
+      case '2 minutes':
+        return 120;
+      default:
+        return 30;
+    }
   }
 }

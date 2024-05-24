@@ -1,7 +1,7 @@
 class GameCard {
   final String value;
   final String playerName = "";
-  final bool isLocked = false;
+  late bool isEliminated = false;
   final bool isImposterCard;
 
   GameCard({
