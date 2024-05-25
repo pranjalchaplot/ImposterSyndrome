@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppConfigs {
   static const String imposterString = "IMPOSTER";
+  static const String teamNameString = "CREWMATE";
   static LinearGradient gameBackgroundGradient = const LinearGradient(
     colors: [
       Color.fromARGB(255, 0, 0, 0), // Start color
@@ -10,13 +11,17 @@ class AppConfigs {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
-  static TextStyle textStyle = const TextStyle(
+  static TextStyle selectionStageCardTextStyle = const TextStyle(
     fontFamily: 'ITCBenguiat',
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
   static Color cardColor = Colors.white;
+  static Color selectedCardColor = const Color.fromARGB(255, 61, 101, 143);
+  static Color eliminatedCardColor = const Color.fromARGB(255, 137, 137, 137);
   static Color imposterCardColor = Colors.red;
+
+  static Duration popupDisplayDelay = const Duration(seconds: 1);
 
   static PreferredSize getAppBar(double statusBarHeight, bool showLogo) {
     return PreferredSize(
