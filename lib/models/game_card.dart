@@ -1,7 +1,10 @@
+import 'package:flip_card/flip_card_controller.dart';
+
 class GameCard {
   final String value;
-  final String playerName = "";
+  String playerName = "";
   late bool isEliminated = false;
+  FlipCardController flipCardController = FlipCardController();
   final bool isImposterCard;
 
   GameCard({
