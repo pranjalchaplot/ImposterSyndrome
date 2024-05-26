@@ -76,8 +76,7 @@ class _OffPlayState extends State<OffPlay> {
               SizedBox(
                 height: statusBarHeight + 150,
               ),
-              returnDisplayWidget(),
-              const TimeRemainingDisplay(),
+              ...getDisplayWidget(),
             ],
           ),
         ),
@@ -85,16 +84,27 @@ class _OffPlayState extends State<OffPlay> {
     );
   }
 
-  Widget returnDisplayWidget() {
+  Widget getBottomBannerWidget() {
+    return const TimeRemainingDisplay();
+  }
+
+  List<Widget> getDisplayWidget() {
+    List<Widget> displayWidgets = List.empty(growable: true);
+
     if (_gameProvider.currentGameStage == GameStageEnum.selectionStage) {
-      return DisplaySelectionCards(
+      displayWidgets.add(DisplaySelectionCards(
         gameProvider: _gameProvider,
         startRound: startRound,
-      );
+      ));
     } else if (_gameProvider.currentGameStage == GameStageEnum.playStage) {
-      return DisplayGameCards(gameProvider: _gameProvider);
+      displayWidgets.add(
+        DisplayGameCards(gameProvider: _gameProvider),
+      );
+      displayWidgets.add(getBottomBannerWidget());
+    } else {
+      displayWidgets.add(const Text("something went wrong"));
     }
 
-    return const Text("something went wrong");
+    return displayWidgets;
   }
 }

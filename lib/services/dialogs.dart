@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imposter_syndrome_game/app_configs.dart';
+import 'package:provider/provider.dart';
+import '../providers/game_provider.dart';
 import '../screens/off_play.dart';
 
 class GameDialogs {
@@ -53,8 +55,9 @@ class GameDialogs {
     });
   }
 
-  static void showNextRoundDialog(
-      BuildContext context, VoidCallback startTimer) {
+  static void showNextRoundDialog(BuildContext context, VoidCallback startTimer,
+      Function(GameProvider) postElimination) {
+    final gameProvider = context.read<GameProvider>();
     Future.delayed(AppConfigs.popupDisplayDelay, () {
       showDialog(
         context: context,
@@ -67,6 +70,7 @@ class GameDialogs {
                 onPressed: () {
                   Navigator.of(context).pop();
                   startTimer();
+                  postElimination(gameProvider);
                 },
                 child: const Text('Start Next Round'),
               ),
