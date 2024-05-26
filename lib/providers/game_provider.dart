@@ -6,7 +6,7 @@ import 'package:imposter_syndrome_game/models/game_card.dart';
 import 'package:imposter_syndrome_game/services/dialogs.dart';
 import 'package:imposter_syndrome_game/services/game_logic.dart';
 
-import '../services/game_cards.dart';
+import '../services/game_card_view_model.dart';
 
 class GameProvider extends ChangeNotifier {
   GameStageEnum _currentGameStage = GameStageEnum.selectionStage;
@@ -20,11 +20,17 @@ class GameProvider extends ChangeNotifier {
   int selectedCards = 0;
   int eliminatedCards = 0;
 
+  bool _lockCards = false;
+  int _currentSelectedCardIndex = 0;
+
   GameStageEnum get currentGameStage => _currentGameStage;
   int get secondsRemaining => _secondsRemaining;
   int get imposterCardIndex => _imposterCardIndex;
   String get answer => _answer;
   List<GameCard> get gameCards => _gameCards;
+
+  bool get lockCards => _lockCards;
+  int get currentSelectedCardIndex => _currentSelectedCardIndex;
 
   void initializeGame(int numberOfPlayers, String category) {
     _gameCards = GameLogic.getItemsForCategory(category, numberOfPlayers);
@@ -40,11 +46,22 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handleCompleteCardSelection() {
+  void lockSelectionCards(int cardIndex) {
+    _currentSelectedCardIndex = cardIndex;
+    _lockCards = true;
+  }
+
+  void unlockSelectionCards(int cardIndex) {
+    _currentSelectedCardIndex = -1;
+    _lockCards = false;
+  }
+
+  bool handleCompleteCardSelection() {
     selectedCards++;
     if (selectedCards == gameCards.length) {
-      handleGameStageChange(GameStageEnum.playStage);
+      return true;
     }
+    return false;
   }
 
   void startTimer() {
@@ -82,22 +99,24 @@ class GameProvider extends ChangeNotifier {
         context, !isImposter, answer, gameCards[imposterCardIndex].playerName);
   }
 
-  void handleRoundEnd(BuildContext context, int index, bool isImposter) {
+  void handleRoundEnd(BuildContext context, int index, bool isImposter,
+      Function(GameProvider) postElimination) {
     eliminatedCards++;
     if (eliminatedCards == gameCards.length - 2 || isImposter) {
       handleGameEnd(context, index, isImposter);
     } else {
-      GameDialogs.showNextRoundDialog(context, startTimer);
+      GameDialogs.showNextRoundDialog(context, startTimer, postElimination);
     }
   }
 
-  void handleGameCardVoting(BuildContext context, int index) {
+  void handleGameCardVoting(
+      BuildContext context, int index, Function(GameProvider) postElimination) {
     if (index < 0 || index >= _gameCards.length) {
       return;
     }
     stopTimer();
     bool isImposter = _gameCards[index].isImposterCard;
-    handleRoundEnd(context, index, isImposter);
+    handleRoundEnd(context, index, isImposter, postElimination);
     notifyListeners();
   }
 
@@ -140,7 +159,6 @@ class GameProvider extends ChangeNotifier {
       backText: backText,
       isEliminated: isEliminated,
       isImposterCard: isImposterCard,
-      handleCompleteCardSelection: handleCompleteCardSelection,
       startRound: startRound,
     );
 
