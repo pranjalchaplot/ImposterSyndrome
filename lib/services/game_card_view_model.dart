@@ -7,13 +7,14 @@ import 'package:imposter_syndrome_game/providers/game_provider.dart';
 import 'package:imposter_syndrome_game/services/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/face_card.dart';
+
 class GameCardVM extends StatefulWidget {
   final String frontText;
   final String backText;
   final int cardIndex;
   final bool isEliminated;
   final bool isImposterCard;
-  final VoidCallback handleCompleteCardSelection;
   final VoidCallback startRound;
 
   const GameCardVM({
@@ -22,7 +23,6 @@ class GameCardVM extends StatefulWidget {
     required this.backText,
     required this.isEliminated,
     required this.isImposterCard,
-    required this.handleCompleteCardSelection,
     required this.cardIndex,
     required this.startRound,
   });
@@ -72,47 +72,69 @@ class _GameCardVMState extends State<GameCardVM> {
               fill: Fill.fillBack,
               direction: FlipDirection.HORIZONTAL,
               side: _cardSide,
-              front: Card(
-                color: getCardColor(true),
-                elevation: 4.0,
-                child: Center(
-                  child: Text(
-                    _frontText,
-                    style: AppConfigs.selectionStageCardTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+              front: FaceCard(
+                faceText: _frontText,
+                cardGradient: getCardFaceBG(true),
+                isSelected: _isCardSelected,
+                isFrontFace: true,
+                cardIndex: widget.cardIndex,
               ),
-              back: Card(
-                color: getCardColor(false),
-                elevation: 4.0,
-                child: Center(
-                  child: Text(
-                    _backText,
-                    style: AppConfigs.selectionStageCardTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+              back: FaceCard(
+                faceText: _backText,
+                cardGradient: getCardFaceBG(false),
+                isSelected: _isCardSelected,
+                isFrontFace: false,
+                cardIndex: widget.cardIndex,
               ),
             ),
           );
         });
   }
 
-  Color getCardColor(bool isFrontFace) {
-    if (isFrontFace) {
-      if (_isCardSelected) {
-        return AppConfigs.selectedCardColor;
+  LinearGradient getCardFaceBG(bool isFrontFace) {
+    final gameProvider = context.read<GameProvider>();
+    if (gameProvider.currentGameStage == GameStageEnum.selectionStage) {
+      if (isFrontFace) {
+        if (_isCardSelected) {
+          return AppConfigs.lockedCardGradientColor;
+        }
+      } else {
+        if (widget.isImposterCard) {
+          return AppConfigs.imposterCardGradientColor;
+        }
+        if (flipCount >= 1) {
+          return AppConfigs.viewCardGradientColor;
+        }
       }
-    } else if (widget.isImposterCard) {
-      return AppConfigs.imposterCardColor;
+    } else if (gameProvider.currentGameStage == GameStageEnum.playStage) {
+      if (isFrontFace) {
+        if (_isCardSelected) {
+          return AppConfigs.lockedCardGradientColor;
+        }
+      } else {
+        if (widget.isImposterCard) {
+          return AppConfigs.imposterCardGradientColor;
+        }
+
+        if (gameProvider.gameCards[widget.cardIndex].isEliminated) {
+          return AppConfigs.eliminatedCardGradientColor;
+        }
+      }
     }
 
-    return AppConfigs.cardColor;
+    return AppConfigs.cardGradientColor;
   }
 
   Future<void> handleOnTap(BuildContext context) async {
     final gameProvider = context.read<GameProvider>();
+
+    if (gameProvider.lockCards &&
+        gameProvider.currentSelectedCardIndex != widget.cardIndex) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        AppConfigs.flipSelfCardWarning(),
+      );
+      return;
+    }
 
     if (gameProvider.currentGameStage == GameStageEnum.selectionStage) {
       if (flipCount == 0 &&
@@ -122,6 +144,7 @@ class _GameCardVMState extends State<GameCardVM> {
           return;
         } else {
           gameProvider.gameCards[widget.cardIndex].playerName = username;
+          gameProvider.lockSelectionCards(widget.cardIndex);
         }
       }
 
@@ -131,19 +154,31 @@ class _GameCardVMState extends State<GameCardVM> {
         _frontText =
             "${gameProvider.gameCards[widget.cardIndex].playerName} has Selected This Card🔒";
         _isCardSelected = true;
-        widget.handleCompleteCardSelection();
-        if (gameProvider.currentGameStage == GameStageEnum.playStage) {
-          widget.startRound();
+        gameProvider.unlockSelectionCards(widget.cardIndex);
+        bool changeStage = gameProvider.handleCompleteCardSelection();
+        if (changeStage) {
+          Future.delayed(const Duration(milliseconds: 690), () {
+            gameProvider.handleGameStageChange(GameStageEnum.playStage);
+            widget.startRound();
+          });
         }
       }
     } else if (gameProvider.currentGameStage == GameStageEnum.playStage) {
-      gameProvider.handleGameCardVoting(context, widget.cardIndex);
+      gameProvider.handleGameCardVoting(
+          context, widget.cardIndex, postElimination);
       setState(() {
         gameProvider.gameCards[widget.cardIndex].isEliminated = true;
       });
     }
 
     _controller.toggleCard();
+  }
+
+  void postElimination(GameProvider gameProvider) {
+    setState(() {
+      _backText =
+          "${gameProvider.gameCards[widget.cardIndex].playerName}\n IS Eliminated🚫";
+    });
   }
 
   Future<String?> enterPlayName(BuildContext context) async {
