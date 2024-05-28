@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../app_configs.dart';
 import '../providers/game_provider.dart';
-import '../widgets/time_display.dart';
+import '../widgets/banner_text.dart';
 
 class OffPlay extends StatefulWidget {
   final int numberOfPlayers;
@@ -63,6 +63,7 @@ class _OffPlayState extends State<OffPlay> {
       value: _gameProvider,
       child: Scaffold(
         extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
         appBar: AppConfigs.getAppBar(statusBarHeight, true),
         body: Container(
           width: double.infinity,
@@ -76,7 +77,8 @@ class _OffPlayState extends State<OffPlay> {
               SizedBox(
                 height: statusBarHeight + 150,
               ),
-              ...getDisplayWidget(),
+              getDisplayWidget(),
+              const BannerText(),
             ],
           ),
         ),
@@ -85,26 +87,19 @@ class _OffPlayState extends State<OffPlay> {
   }
 
   Widget getBottomBannerWidget() {
-    return const TimeRemainingDisplay();
+    return const BannerText();
   }
 
-  List<Widget> getDisplayWidget() {
-    List<Widget> displayWidgets = List.empty(growable: true);
-
+  Widget getDisplayWidget() {
     if (_gameProvider.currentGameStage == GameStageEnum.selectionStage) {
-      displayWidgets.add(DisplaySelectionCards(
+      return DisplaySelectionCards(
         gameProvider: _gameProvider,
         startRound: startRound,
-      ));
-    } else if (_gameProvider.currentGameStage == GameStageEnum.playStage) {
-      displayWidgets.add(
-        DisplayGameCards(gameProvider: _gameProvider),
       );
-      displayWidgets.add(getBottomBannerWidget());
-    } else {
-      displayWidgets.add(const Text("something went wrong"));
+    } else if (_gameProvider.currentGameStage == GameStageEnum.playStage) {
+      return DisplayGameCards(gameProvider: _gameProvider);
     }
 
-    return displayWidgets;
+    return const Text("something went wrong");
   }
 }
