@@ -2,7 +2,7 @@ import 'package:imposter_syndrome_game/app_configs.dart';
 
 class GameData {
   static final List<int> _playerLobbyStrength = List<int>.generate(
-    AppConfigs.playerLobbyMaxSize,
+    AppConfigs.playerLobbyMaxSize - AppConfigs.playerLobbyMinSize,
     (int index) {
       return index + AppConfigs.playerLobbyMinSize;
     },

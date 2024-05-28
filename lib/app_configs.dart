@@ -6,7 +6,7 @@ class AppConfigs {
   static const String teamNameString = "CREWMATE";
 
   static const int playerLobbyMinSize = 4;
-  static const int playerLobbyMaxSize = 6;
+  static const int playerLobbyMaxSize = 10;
 
   static const EdgeInsetsGeometry gridPadding = EdgeInsets.all(15.0);
   static const SliverGridDelegateWithFixedCrossAxisCount gridDelegate =
