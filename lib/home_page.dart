@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Scaffold(
       extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppConfigs.getAppBar(statusBarHeight, true),
       body: Container(
         width: double.infinity,

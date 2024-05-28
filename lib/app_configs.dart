@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppConfigs {
   static const String imposterString = "IMPOSTER";
   static const String teamNameString = "CREWMATE";
+
+  static const EdgeInsetsGeometry gridPadding = EdgeInsets.all(15.0);
+  static const SliverGridDelegateWithFixedCrossAxisCount gridDelegate =
+      SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    mainAxisSpacing: 9.6,
+    crossAxisSpacing: 9.6,
+    childAspectRatio: 0.69,
+  );
+
   static LinearGradient gameBackgroundGradient = const LinearGradient(
     colors: [
       Color.fromARGB(255, 0, 0, 0), // Start color
@@ -14,8 +25,8 @@ class AppConfigs {
 
   static LinearGradient cardGradientColor = const LinearGradient(
     colors: [
-      Color.fromARGB(255, 255, 255, 255), // Start color
-      Color.fromARGB(217, 239, 243, 239), // End color
+      Color.fromARGB(100, 76, 175, 79),
+      Color.fromARGB(100, 101, 197, 104),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -42,7 +53,7 @@ class AppConfigs {
   static LinearGradient imposterCardGradientColor = const LinearGradient(
     colors: [
       Colors.red,
-      Color.fromARGB(255, 195, 118, 118),
+      Colors.redAccent,
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -62,29 +73,56 @@ class AppConfigs {
     fontSize: 20,
     fontWeight: FontWeight.bold,
   );
+
+  static TextStyle selectionStageFrontCardTextStyle = const TextStyle(
+    fontFamily: 'ITCBenguiat',
+    fontSize: 90,
+    fontWeight: FontWeight.bold,
+  );
+
   static Color cardColor = Colors.white;
   static Color selectedCardColor = const Color.fromARGB(255, 99, 216, 105);
   static Color eliminatedCardColor = const Color.fromARGB(255, 137, 137, 137);
   static Color imposterCardColor = Colors.red;
   static Color viewStageCardColor = const Color.fromARGB(255, 108, 174, 206);
-  static Color warningGreenSnackBarBG = Colors.green.shade400.withOpacity(0.6);
+  static Color warningSnackBarBG = Colors.black;
   static Duration popupDisplayDelay = const Duration(seconds: 1);
 
   static SnackBar flipSelfCardWarning() {
+    return warningSnackBar("Fold Your Card After Seeing🙏");
+  }
+
+  static SnackBar flipEliminatedCardWarning() {
+    return warningSnackBar("Vote Other Card");
+  }
+
+  static SnackBar warningSnackBar(String text) {
     return SnackBar(
-      content: const Text(
-        "Fold Your Card After Seeing🙏",
+      content: Text(
+        text,
+        style: GoogleFonts.pottaOne(
+          textStyle: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        textAlign: TextAlign.center,
       ),
-      duration: const Duration(seconds: 2),
-      backgroundColor: warningGreenSnackBarBG,
+      duration: const Duration(seconds: 1),
+      backgroundColor: warningSnackBarBG,
     );
   }
 
   static Text getBannerWidgetText(String text) {
-    return Text(
-      text,
-      style: const TextStyle(fontSize: 22.0, fontWeight: FontWeight.w500),
-    );
+    return Text(text,
+        style: GoogleFonts.archivo(
+          textStyle: const TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: 22.0,
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.italic,
+          ),
+        ));
   }
 
   static PreferredSize getAppBar(double statusBarHeight, bool showLogo) {

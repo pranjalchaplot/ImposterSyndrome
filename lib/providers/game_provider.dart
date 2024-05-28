@@ -49,11 +49,13 @@ class GameProvider extends ChangeNotifier {
   void lockSelectionCards(int cardIndex) {
     _currentSelectedCardIndex = cardIndex;
     _lockCards = true;
+    notifyListeners();
   }
 
   void unlockSelectionCards(int cardIndex) {
     _currentSelectedCardIndex = -1;
     _lockCards = false;
+    notifyListeners();
   }
 
   bool handleCompleteCardSelection() {
@@ -138,7 +140,7 @@ class GameProvider extends ChangeNotifier {
 
     switch (currentGameStage) {
       case GameStageEnum.selectionStage:
-        frontText = "Select A Card!!👆";
+        frontText = "?";
         backText = gameCards[index].value;
         break;
       case GameStageEnum.playStage:
