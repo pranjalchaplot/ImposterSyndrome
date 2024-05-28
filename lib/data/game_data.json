@@ -1,0 +1,17 @@
+{
+  "category": [
+    {
+      "name": "Celebs",
+      "data": ["Virat Kohli", "PRANJAL", "MS Dhoni", "SRK", "Steve Jobs"]
+    },
+    {
+      "name": "Cinema",
+      "data": ["3 Idiots", "Drishyam", "Dhoom", "Jab We Met", "Shaitaan"]
+    },
+    {
+      "name": "Cities",
+      "data": ["Udaipur", "Chennai", "Bangaluru", "Mumbai", "Pune"]
+    }
+  ],
+  "roundsLengthOption": ["30 seconds", "1 minute", "2 minutes"]
+}
