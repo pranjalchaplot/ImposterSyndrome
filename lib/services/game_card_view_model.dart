@@ -63,6 +63,10 @@ class _GameCardVMState extends State<GameCardVM> {
             onTap: () async {
               if (gameProvider.gameCards[widget.cardIndex].isEliminated) {
                 showSnackBar(AppConfigs.flipEliminatedCardWarning());
+              } else if (_isCardSelected) {
+                showSnackBar(
+                  AppConfigs.flipSelectedCardWarning(),
+                );
               } else if (enableFlipping) {
                 await handleOnTap(context);
               }

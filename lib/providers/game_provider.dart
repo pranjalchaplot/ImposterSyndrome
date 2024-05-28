@@ -146,7 +146,7 @@ class GameProvider extends ChangeNotifier {
       case GameStageEnum.playStage:
         frontText = isEliminated
             ? "$playerName is Eliminated💀"
-            : "Eliminate $playerName🎯";
+            : "Eliminate $playerName";
         backText = isImposterCard
             ? "$playerName is The ${AppConfigs.imposterString}"
             : "$playerName is Not The ${AppConfigs.imposterString}";
