@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:imposter_syndrome_game/app_configs.dart';
+import 'package:imposter_syndrome_game/data/game_data.dart';
 import 'package:imposter_syndrome_game/widgets/show_dialog_box.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import '../screens/off_play.dart';
+import '../widgets/popup_dropdown_list.dart';
 
 class GameDialogs {
   static void showGameEndDialog(BuildContext context, bool imposterWon,
@@ -127,7 +129,7 @@ class GameDialogs {
       context: context,
       builder: (BuildContext context) {
         // Set these defaults in app configs
-        int selectedPlayers = 4;
+        int selectedPlayers = AppConfigs.playerLobbyMinSize;
         String selectedCategory = 'Celebs';
         String selectedRoundLength = '30 seconds';
 
@@ -141,7 +143,7 @@ class GameDialogs {
                     "Play Settings",
                     style: AppConfigs.popUpDisplayTitleTS,
                   ),
-                  DropdownButton<int>(
+                  PopupDropdownList<int>(
                     value: selectedPlayers,
                     onChanged: (int? newValue) {
                       if (newValue != null) {
@@ -150,7 +152,7 @@ class GameDialogs {
                         });
                       }
                     },
-                    items: <int>[4, 5, 6, 7, 8, 9]
+                    items: GameData.getPlayerLobbySize()
                         .map<DropdownMenuItem<int>>((int value) {
                       return DropdownMenuItem<int>(
                         value: value,
@@ -161,7 +163,7 @@ class GameDialogs {
                       );
                     }).toList(),
                   ),
-                  DropdownButton<String>(
+                  PopupDropdownList<String>(
                     value: selectedCategory,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
@@ -170,7 +172,7 @@ class GameDialogs {
                         });
                       }
                     },
-                    items: <String>['Celebs', 'Cinema', 'Cities']
+                    items: GameData.getCategories()
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -181,7 +183,7 @@ class GameDialogs {
                       );
                     }).toList(),
                   ),
-                  DropdownButton<String>(
+                  PopupDropdownList<String>(
                     value: selectedRoundLength,
                     onChanged: (String? newValue) {
                       if (newValue != null) {
@@ -190,7 +192,7 @@ class GameDialogs {
                         });
                       }
                     },
-                    items: <String>['30 seconds', '1 minute', '2 minutes']
+                    items: GameData.roundLengthOptions()
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

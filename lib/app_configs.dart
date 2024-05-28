@@ -5,6 +5,9 @@ class AppConfigs {
   static const String imposterString = "IMPOSTER";
   static const String teamNameString = "CREWMATE";
 
+  static const int playerLobbyMinSize = 4;
+  static const int playerLobbyMaxSize = 6;
+
   static const EdgeInsetsGeometry gridPadding = EdgeInsets.all(15.0);
   static const SliverGridDelegateWithFixedCrossAxisCount gridDelegate =
       SliverGridDelegateWithFixedCrossAxisCount(
@@ -89,7 +92,7 @@ class AppConfigs {
   static TextStyle playStageCardFrontTextStyle = GoogleFonts.ubuntu(
       textStyle: const TextStyle(
     color: Colors.white,
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: FontWeight.bold,
   ));
 
@@ -115,12 +118,11 @@ class AppConfigs {
     color: Colors.greenAccent,
     fontWeight: FontWeight.bold,
     fontStyle: FontStyle.italic,
-    fontSize: 25,
+    fontSize: 22,
   );
 
   static const TextStyle popUpDisplayMenuTS = TextStyle(
     color: Colors.greenAccent,
-    fontStyle: FontStyle.italic,
     fontSize: 20,
   );
 
@@ -160,7 +162,6 @@ class AppConfigs {
             color: Color.fromARGB(255, 255, 255, 255),
             fontSize: 22.0,
             fontWeight: FontWeight.w900,
-            fontStyle: FontStyle.italic,
           ),
         ));
   }
