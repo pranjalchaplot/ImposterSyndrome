@@ -61,8 +61,9 @@ class _GameCardVMState extends State<GameCardVM> {
         builder: (context, enableFlipping, child) {
           return GestureDetector(
             onTap: () async {
-              if (enableFlipping &&
-                  !gameProvider.gameCards[widget.cardIndex].isEliminated) {
+              if (gameProvider.gameCards[widget.cardIndex].isEliminated) {
+                showSnackBar(AppConfigs.flipEliminatedCardWarning());
+              } else if (enableFlipping) {
                 await handleOnTap(context);
               }
             },
@@ -125,12 +126,18 @@ class _GameCardVMState extends State<GameCardVM> {
     return AppConfigs.cardGradientColor;
   }
 
+  void showSnackBar(SnackBar snackBar) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      snackBar,
+    );
+  }
+
   Future<void> handleOnTap(BuildContext context) async {
     final gameProvider = context.read<GameProvider>();
 
     if (gameProvider.lockCards &&
         gameProvider.currentSelectedCardIndex != widget.cardIndex) {
-      ScaffoldMessenger.of(context).showSnackBar(
+      showSnackBar(
         AppConfigs.flipSelfCardWarning(),
       );
       return;
@@ -177,7 +184,7 @@ class _GameCardVMState extends State<GameCardVM> {
   void postElimination(GameProvider gameProvider) {
     setState(() {
       _backText =
-          "${gameProvider.gameCards[widget.cardIndex].playerName}\n IS Eliminated🚫";
+          "${gameProvider.gameCards[widget.cardIndex].playerName} ELIMINATED!";
     });
   }
 

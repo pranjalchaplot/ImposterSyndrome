@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imposter_syndrome_game/app_configs.dart';
+import 'package:imposter_syndrome_game/models/enums/game_stage_enum.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/game_provider.dart';
@@ -31,34 +32,63 @@ class FaceCard extends StatefulWidget {
 class _FaceCardState extends State<FaceCard> {
   var cardGradient = AppConfigs;
 
-  Widget getMainWidget(String playerName) {
-    if (widget._isSelected && widget._isFrontFace) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Transform.rotate(
-            angle: 0.4,
-            child: SizedBox(
-              child: Image.asset(
-                'assets/images/selected_removed_bg.png',
-                opacity: const AlwaysStoppedAnimation(.69),
-                fit: BoxFit.cover,
+  Widget getMainWidget(
+      String playerName, bool isImposter, GameStageEnum currentStage) {
+    if (currentStage == GameStageEnum.selectionStage) {
+      if (widget._isFrontFace) {
+        if (widget._isSelected) {
+          return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Transform.rotate(
+                    angle: 0.4,
+                    child: SizedBox(
+                        child: Image.asset(
+                            'assets/images/selected_removed_bg.png',
+                            opacity: const AlwaysStoppedAnimation(.69),
+                            fit: BoxFit.cover))),
+                const SizedBox(
+                  height: 2,
+                ),
+                Text(playerName,
+                    style: const TextStyle(
+                      color: Color.fromARGB(193, 255, 255, 255),
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                    ))
+              ]);
+        }
+
+        return Container(
+          margin: const EdgeInsets.only(top: 20),
+          child: Text(
+            widget._faceText,
+            style: AppConfigs.selectionStageFrontCardTextStyle,
+          ),
+        );
+      }
+    } else if (currentStage == GameStageEnum.playStage) {
+      if (widget._isFrontFace) {
+        //
+      } else if (!isImposter) {
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(
+                child: Icon(
+                  Icons.block_flipped,
+                  color: Colors.red,
+                  size: 69,
+                ),
               ),
-            ),
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          Text(
-            playerName,
-            style: const TextStyle(
-              color: Color.fromARGB(193, 255, 255, 255),
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-            ),
-          )
-        ],
-      );
+              Text(widget._faceText,
+                  style: const TextStyle(
+                    color: Color.fromARGB(193, 255, 255, 255),
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                  ))
+            ]);
+      }
     }
 
     return Text(
@@ -79,8 +109,11 @@ class _FaceCardState extends State<FaceCard> {
         borderRadius: BorderRadius.circular(13.0),
       ),
       child: Center(
-        child:
-            getMainWidget(gameProvider.gameCards[widget._cardIndex].playerName),
+        child: getMainWidget(
+          gameProvider.gameCards[widget._cardIndex].playerName,
+          gameProvider.imposterCardIndex == widget._cardIndex,
+          gameProvider.currentGameStage,
+        ),
       ),
     );
   }
