@@ -1,5 +1,8 @@
 # Imposter Games
 
+![_e5b62fc6-820f-4ac9-b3d0-797bd720c81d](https://github.com/pranjalchaplot/ImposterSyndrome/assets/52233809/42123911-9d0b-456e-91de-8535de1f9d09)
+
+
 Imposter Games is a fun and engaging multiplayer game application that revolves around the popular "imposter" trope. Inspired by games like "Among Us," Imposter Games offers multiple game modes where players try to identify the imposter among them. The app is built using Flutter, making it cross-platform and easily accessible on both iOS and Android devices.
 
 ## Table of Contents
