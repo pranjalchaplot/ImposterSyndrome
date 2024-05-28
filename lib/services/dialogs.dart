@@ -99,7 +99,7 @@ class GameDialogs {
           mainAxisSize: MainAxisSize.min,
           children: [
             const Text(
-              'Find The ${AppConfigs.imposterString} 🕵️',
+              'Who\'s The ${AppConfigs.imposterString}?',
               style: AppConfigs.popUpDisplayTitleTS,
             ),
             const SizedBox(height: 10),
@@ -280,7 +280,9 @@ class GameDialogs {
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Please enter a username';
+                        return 'Please Enter Your Player Name';
+                      } else if (value.length >= 11) {
+                        return "Player Name Should < 11 letters";
                       }
                       return null;
                     },
