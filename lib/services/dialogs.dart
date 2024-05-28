@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imposter_syndrome_game/app_configs.dart';
+import 'package:imposter_syndrome_game/widgets/show_dialog_box.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import '../screens/off_play.dart';
@@ -91,49 +92,32 @@ class GameDialogs {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 18, 207, 22), // Start color
-                  Color.fromARGB(255, 31, 191, 124), // End color
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+        return ShowDialogBox(
+            showDialogChild: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Find The ${AppConfigs.imposterString} 🕵️',
+              style: AppConfigs.popUpDisplayTitleTS,
+            ),
+            const SizedBox(height: 10),
+            Text(
+              'Category: $category\nRound Length: $roundLength\nTotal Players: $totalPlayers',
+              style: AppConfigs.popUpDisplayMenuTS,
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                startTimer();
+              },
+              child: const Text(
+                'Let\'s Begin the Game!',
+                style: AppConfigs.popUpDisplayButtonTS,
               ),
-              // color: const Color.fromARGB(255, 210, 209, 209).withOpacity(0.6),
-              borderRadius: BorderRadius.circular(15),
             ),
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Find The ${AppConfigs.imposterString} 🕵️',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Category: $category\nRound Length: $roundLength\nTotal Players: $totalPlayers',
-                  style: const TextStyle(fontSize: 16),
-                ),
-                const SizedBox(height: 20),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    startTimer();
-                  },
-                  child: const Text('Let\'s Begin the Game!'),
-                ),
-              ],
-            ),
-          ),
-        );
+          ],
+        ));
       },
     );
   }
@@ -142,18 +126,21 @@ class GameDialogs {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        //Set this defaults in app configs
+        // Set these defaults in app configs
         int selectedPlayers = 4;
         String selectedCategory = 'Celebs';
         String selectedRoundLength = '30 seconds';
 
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return AlertDialog(
-              title: const Text('Setup Game'),
-              content: Column(
+            return ShowDialogBox(
+              showDialogChild: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  const Text(
+                    "Play Settings",
+                    style: AppConfigs.popUpDisplayTitleTS,
+                  ),
                   DropdownButton<int>(
                     value: selectedPlayers,
                     onChanged: (int? newValue) {
@@ -167,7 +154,10 @@ class GameDialogs {
                         .map<DropdownMenuItem<int>>((int value) {
                       return DropdownMenuItem<int>(
                         value: value,
-                        child: Text('$value Players'),
+                        child: Text(
+                          '$value Players',
+                          style: AppConfigs.popUpDisplayMenuTS,
+                        ),
                       );
                     }).toList(),
                   ),
@@ -184,7 +174,10 @@ class GameDialogs {
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value),
+                        child: Text(
+                          value,
+                          style: AppConfigs.popUpDisplayMenuTS,
+                        ),
                       );
                     }).toList(),
                   ),
@@ -201,35 +194,47 @@ class GameDialogs {
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value),
+                        child: Text(
+                          value,
+                          style: AppConfigs.popUpDisplayMenuTS,
+                        ),
                       );
                     }).toList(),
                   ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => OffPlay(
-                          numberOfPlayers: selectedPlayers,
-                          category: selectedCategory,
-                          roundLength: selectedRoundLength,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          'Cancel',
+                          style: AppConfigs.popUpDisplayButtonTS,
                         ),
                       ),
-                    );
-                  },
-                  child: const Text('Play'),
-                ),
-              ],
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => OffPlay(
+                                numberOfPlayers: selectedPlayers,
+                                category: selectedCategory,
+                                roundLength: selectedRoundLength,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Play',
+                          style: AppConfigs.popUpDisplayButtonTS,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             );
           },
         );
@@ -258,7 +263,7 @@ class GameDialogs {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'Enter Username',
+                    'Enter Player Name',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -268,7 +273,7 @@ class GameDialogs {
                   TextFormField(
                     controller: controller,
                     decoration: const InputDecoration(
-                      labelText: 'Username',
+                      labelText: 'Player Name',
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {

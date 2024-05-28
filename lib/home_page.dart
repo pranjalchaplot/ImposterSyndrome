@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import './app_configs.dart';
 import './services/dialogs.dart';
 
@@ -25,7 +26,18 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 GameDialogs.showOfflinePlayDialog(context);
               },
-              child: const Text("Play Offline"),
+              style: const ButtonStyle(
+                backgroundColor: WidgetStateColor.transparent,
+              ),
+              child: Text(
+                "Play Offline",
+                style: GoogleFonts.poppins(
+                    textStyle: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontStyle: FontStyle.italic,
+                  color: Colors.redAccent,
+                )),
+              ),
             ),
           ],
         ),

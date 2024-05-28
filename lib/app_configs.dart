@@ -14,10 +14,22 @@ class AppConfigs {
     childAspectRatio: 0.69,
   );
 
+  static RadialGradient popUpDisplayGradient = const RadialGradient(
+    colors: [
+      Color.fromARGB(255, 52, 120, 54),
+      Color.fromARGB(255, 69, 69, 69),
+    ],
+    // begin: Alignment.topLeft,
+    // end: Alignment.bottomRight,
+    focal: Alignment.center,
+    tileMode: TileMode.decal,
+    radius: 4,
+  );
+
   static LinearGradient gameBackgroundGradient = const LinearGradient(
     colors: [
-      Color.fromARGB(255, 0, 0, 0), // Start color
-      Color.fromARGB(217, 128, 0, 0), // End color
+      Color.fromARGB(255, 0, 0, 0),
+      Color.fromARGB(217, 128, 0, 0),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -74,6 +86,13 @@ class AppConfigs {
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle playStageCardFrontTextStyle = GoogleFonts.ubuntu(
+      textStyle: const TextStyle(
+    color: Colors.white,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  ));
+
   static TextStyle selectionStageFrontCardTextStyle = const TextStyle(
     fontFamily: 'ITCBenguiat',
     fontSize: 90,
@@ -88,12 +107,33 @@ class AppConfigs {
   static Color warningSnackBarBG = Colors.black;
   static Duration popupDisplayDelay = const Duration(seconds: 1);
 
+  static const TextStyle popUpDisplayButtonTS = TextStyle(
+    color: Colors.greenAccent,
+  );
+
+  static const TextStyle popUpDisplayTitleTS = TextStyle(
+    color: Colors.greenAccent,
+    fontWeight: FontWeight.bold,
+    fontStyle: FontStyle.italic,
+    fontSize: 25,
+  );
+
+  static const TextStyle popUpDisplayMenuTS = TextStyle(
+    color: Colors.greenAccent,
+    fontStyle: FontStyle.italic,
+    fontSize: 20,
+  );
+
   static SnackBar flipSelfCardWarning() {
     return warningSnackBar("Fold Your Card After Seeing🙏");
   }
 
   static SnackBar flipEliminatedCardWarning() {
     return warningSnackBar("Vote Other Card");
+  }
+
+  static SnackBar flipSelectedCardWarning() {
+    return warningSnackBar("Select Other Card");
   }
 
   static SnackBar warningSnackBar(String text) {

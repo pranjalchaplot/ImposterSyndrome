@@ -69,7 +69,21 @@ class _FaceCardState extends State<FaceCard> {
       }
     } else if (currentStage == GameStageEnum.playStage) {
       if (widget._isFrontFace) {
-        //
+        return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const SizedBox(
+                child: Text(
+                  "🎯",
+                  style: TextStyle(fontSize: 69),
+                ),
+              ),
+              Text(
+                widget._faceText,
+                style: AppConfigs.playStageCardFrontTextStyle,
+                textAlign: TextAlign.center,
+              )
+            ]);
       } else if (!isImposter) {
         return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
