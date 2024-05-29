@@ -35,4 +35,6 @@ class GameData {
   static List<String> roundLengthOptions() {
     return _roundLengthOptions;
   }
+
+  static GameDataVM get categoriesData => _categoriesData;
 }

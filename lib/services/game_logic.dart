@@ -1,25 +1,22 @@
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:imposter_syndrome_game/app_configs.dart';
+import 'package:imposter_syndrome_game/data/game_data.dart';
 import 'package:imposter_syndrome_game/models/game_card.dart';
 
 class GameLogic {
-  static List<GameCard> getItemsForCategory(String category, int playerCount) {
-    List<String> baseItems;
-    switch (category) {
-      case 'Celebs':
-        baseItems = ['Virat Kohli', 'PRANJAL', 'MS Dhoni', 'SRK', 'Steve Jobs'];
-        break;
-      case 'Cinema':
-        baseItems = ['3 Idiots', 'Drishyam', 'Dhoom', 'Jab We Met', 'Shaitaan'];
-        break;
-      case 'Cities':
-        baseItems = ['Udaipur', 'Chennai', 'Bangaluru', 'Mumbai', 'Pune'];
-        break;
-      default:
-        baseItems = [];
+  static List<GameCard> getItemsForCategory(String categoryName, int playerCount) {
+    final categoryData = GameData.categoriesData.category.firstWhereOrNull(
+      (category) => category.name == categoryName,
+    );
+
+    // If the category is not found, return an empty list
+    if (categoryData == null) {
+      return [];
     }
 
+    final baseItems = categoryData.data;
     final random = Random();
     String commonItem = baseItems[random.nextInt(baseItems.length)];
 
