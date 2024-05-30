@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:imposter_syndrome_game/app_configs.dart';
-import 'package:imposter_syndrome_game/data/game_data.dart';
-import 'package:imposter_syndrome_game/models/game_card.dart';
+import '../app_configs.dart';
+import '../data/game_data.dart';
+import '../models/game_card.dart';
 
-class GameLogic {
+class GameLogicHelper {
   static List<GameCard> getItemsForCategory(String category, int playerCount) {
     List<String> baseItems;
 

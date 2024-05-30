@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:imposter_syndrome_game/data/game_data.dart';
+import '../data/game_data.dart';
+import '../helpers/helper.dart';
 import './app_configs.dart';
 import './services/dialogs.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  @override 
+  @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
@@ -35,25 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           gradient: AppConfigs.gameBackgroundGradient,
         ),
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                GameDialogs.showOfflinePlayDialog(context);
-              },
-              style: const ButtonStyle(
-                backgroundColor: WidgetStateColor.transparent,
-              ),
-              child: Text(
-                "Play Offline",
-                style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontStyle: FontStyle.italic,
-                  color: Colors.redAccent,
-                )),
-              ),
+            Helper.getHomeScreenButton(
+              () => GameDialogs.showOfflinePlayDialog(context),
+              "Play Offline",
+              Icons.downloading,
+            ),
+            Helper.getHomeScreenButton(
+              () => GameDialogs.showHowToPlayDialog(context),
+              "How To Play",
+              Icons.question_mark_outlined,
             ),
           ],
         ),

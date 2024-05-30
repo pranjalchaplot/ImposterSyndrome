@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:imposter_syndrome_game/app_configs.dart';
-import 'package:imposter_syndrome_game/models/enums/game_stage_enum.dart';
-import 'package:imposter_syndrome_game/models/game_card.dart';
-import 'package:imposter_syndrome_game/services/dialogs.dart';
-import 'package:imposter_syndrome_game/services/game_logic.dart';
+import '../app_configs.dart';
+import '../models/enums/game_stage_enum.dart';
+import '../models/game_card.dart';
+import '../services/dialogs.dart';
+import '../helpers/game_logic.dart';
 
 import '../services/game_card_view_model.dart';
 
@@ -35,7 +35,7 @@ class GameProvider extends ChangeNotifier {
   int get currentSelectedCardIndex => _currentSelectedCardIndex;
 
   void initializeGame(int numberOfPlayers, String category) {
-    _gameCards = GameLogic.getItemsForCategory(category, numberOfPlayers);
+    _gameCards = GameLogicHelper.getItemsForCategory(category, numberOfPlayers);
     _answer = _gameCards.firstWhere((item) {
       return !item.isImposterCard;
     }).value;
