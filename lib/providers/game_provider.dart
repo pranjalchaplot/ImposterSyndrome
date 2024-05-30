@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:imposter_syndrome_game/app_configs.dart';
 import 'package:imposter_syndrome_game/models/enums/game_stage_enum.dart';
@@ -19,6 +20,7 @@ class GameProvider extends ChangeNotifier {
   int _imposterCardIndex = 0;
   int selectedCards = 0;
   int eliminatedCards = 0;
+  ConfettiController confettiController = ConfettiController();
 
   bool _lockCards = false;
   int _currentSelectedCardIndex = 0;
@@ -91,12 +93,26 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void _playConfetti() {
+    confettiController.play();
+    Timer(
+      const Duration(seconds: 5),
+      _stopConfetti,
+    );
+  }
+
+  void _stopConfetti() {
+    confettiController.stop();
+  }
+
   void handleGameEnd(BuildContext context, int index, bool isImposter) {
-    if (!isImposter) {
-      Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!isImposter) {
         gameCards[imposterCardIndex].flipCardController.toggleCard();
-      });
-    }
+      }
+      _playConfetti();
+    });
+
     GameDialogs.showGameEndDialog(
         context, !isImposter, answer, gameCards[imposterCardIndex].playerName);
   }

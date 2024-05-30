@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:imposter_syndrome_game/models/enums/game_stage_enum.dart';
 import 'package:imposter_syndrome_game/services/dialogs.dart';
@@ -27,6 +30,7 @@ class OffPlay extends StatefulWidget {
 
 class _OffPlayState extends State<OffPlay> {
   late GameProvider _gameProvider;
+  final confettiController = ConfettiController();
 
   @override
   void initState() {
@@ -34,11 +38,13 @@ class _OffPlayState extends State<OffPlay> {
     _gameProvider = GameProvider();
     _gameProvider.initializeGame(widget.numberOfPlayers, widget.category);
     _gameProvider.roundLength = widget.roundLength;
+    _gameProvider.confettiController = confettiController;
   }
 
   @override
   void dispose() {
     _gameProvider.dispose();
+    confettiController.dispose();
     super.dispose();
   }
 
@@ -61,27 +67,38 @@ class _OffPlayState extends State<OffPlay> {
 
     return ChangeNotifierProvider.value(
       value: _gameProvider,
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        resizeToAvoidBottomInset: false,
-        appBar: AppConfigs.getAppBar(statusBarHeight, true),
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: AppConfigs.gameBackgroundGradient,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: statusBarHeight + 150,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Scaffold(
+            extendBodyBehindAppBar: true,
+            resizeToAvoidBottomInset: false,
+            appBar: AppConfigs.getAppBar(statusBarHeight, true),
+            body: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: AppConfigs.gameBackgroundGradient,
               ),
-              getDisplayWidget(),
-              // const BannerText(),
-            ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: statusBarHeight + 150,
+                  ),
+                  getDisplayWidget(),
+                ],
+              ),
+            ),
           ),
-        ),
+          ConfettiWidget(
+            confettiController: confettiController,
+            blastDirection: pi / 2,
+            blastDirectionality: BlastDirectionality.explosive,
+            numberOfParticles: 69,
+            emissionFrequency: 0.069,
+          )
+        ],
       ),
     );
   }
