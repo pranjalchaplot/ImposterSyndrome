@@ -95,7 +95,13 @@ class _FaceCardState extends State<FaceCard> {
                 textAlign: TextAlign.center,
               )
             ]);
-      } else if (!isImposter) {
+      } else if (isImposter) {
+        return Text(
+          widget._faceText,
+          style: AppConfigs.playStageImposterCardTextStyle,
+          textAlign: TextAlign.center,
+        );
+      } else {
         return Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

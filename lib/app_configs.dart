@@ -40,17 +40,18 @@ class AppConfigs {
 
   static LinearGradient cardGradientColor = const LinearGradient(
     colors: [
-      Color.fromARGB(95, 91, 203, 76),
-      Color.fromARGB(95, 216, 195, 195),
+      Color.fromARGB(200, 0, 0, 0),
+      Color.fromARGB(200, 0, 0, 0),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
+    tileMode: TileMode.clamp,
   );
 
   static LinearGradient viewCardGradientColor = const LinearGradient(
     colors: [
-      Color.fromARGB(98, 136, 255, 0),
-      Color.fromARGB(96, 255, 242, 0),
+      Color.fromARGB(172, 229, 255, 0),
+      Color.fromARGB(206, 166, 255, 0),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -95,6 +96,12 @@ class AppConfigs {
     fontWeight: FontWeight.bold,
   );
 
+  static TextStyle playStageImposterCardTextStyle = const TextStyle(
+    fontFamily: 'ITCBenguiat',
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+
   static TextStyle playStageCardFrontTextStyle = GoogleFonts.ubuntu(
       textStyle: const TextStyle(
     color: Colors.white,
@@ -103,6 +110,7 @@ class AppConfigs {
   ));
 
   static TextStyle selectionStageFrontCardTextStyle = const TextStyle(
+    color: Colors.white,
     fontFamily: 'ITCBenguiat',
     fontSize: 90,
     fontWeight: FontWeight.bold,
