@@ -78,7 +78,7 @@ class _OffPlayState extends State<OffPlay> {
                 height: statusBarHeight + 150,
               ),
               getDisplayWidget(),
-              const BannerText(),
+              // const BannerText(),
             ],
           ),
         ),

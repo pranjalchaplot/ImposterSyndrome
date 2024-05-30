@@ -2,15 +2,78 @@
   "category": [
     {
       "name": "Celebs",
-      "data": ["Virat Kohli", "PRANJAL", "MS Dhoni", "SRK", "Steve Jobs"]
+      "data": [
+        "Virat Kohli",
+        "PRANJAL",
+        "MS Dhoni",
+        "SRK",
+        "Steve Jobs",
+        "Amitabh Bachchan",
+        "Deepika Padukone",
+        "Cristiano Ronaldo",
+        "Elon Musk",
+        "Bill Gates"
+      ]
     },
     {
       "name": "Cinema",
-      "data": ["3 Idiots", "Drishyam", "Dhoom", "Jab We Met", "Shaitaan"]
+      "data": [
+        "3 Idiots",
+        "Drishyam",
+        "Dhoom",
+        "Jab We Met",
+        "Shaitaan",
+        "Inception",
+        "The Godfather",
+        "The Shawshank Redemption",
+        "Forrest Gump",
+        "The Dark Knight"
+      ]
     },
     {
       "name": "Cities",
-      "data": ["Udaipur", "Chennai", "Bangaluru", "Mumbai", "Pune"]
+      "data": [
+        "Udaipur",
+        "Chennai",
+        "Bangaluru",
+        "Mumbai",
+        "Pune",
+        "New York",
+        "London",
+        "Paris",
+        "Tokyo",
+        "Sydney"
+      ]
+    },
+    {
+      "name": "Sports",
+      "data": [
+        "Cricket",
+        "Football",
+        "Tennis",
+        "Basketball",
+        "Swimming",
+        "Athletics",
+        "Golf",
+        "Badminton",
+        "Boxing",
+        "Cycling"
+      ]
+    },
+    {
+      "name": "Locations",
+      "data": [
+        "Gym",
+        "Railway Station",
+        "Stadium",
+        "Airport",
+        "Mall",
+        "Park",
+        "Hospital",
+        "School",
+        "University",
+        "Museum"
+      ]
     }
   ],
   "roundsLengthOption": ["30 seconds", "1 minute", "2 minutes"]

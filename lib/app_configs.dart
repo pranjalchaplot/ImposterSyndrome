@@ -40,8 +40,8 @@ class AppConfigs {
 
   static LinearGradient cardGradientColor = const LinearGradient(
     colors: [
-      Color.fromARGB(100, 76, 175, 79),
-      Color.fromARGB(100, 101, 197, 104),
+      Color.fromARGB(95, 91, 203, 76),
+      Color.fromARGB(95, 216, 195, 195),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -49,8 +49,8 @@ class AppConfigs {
 
   static LinearGradient viewCardGradientColor = const LinearGradient(
     colors: [
-      Color.fromARGB(255, 167, 241, 83),
-      Color.fromARGB(255, 96, 244, 55)
+      Color.fromARGB(98, 136, 255, 0),
+      Color.fromARGB(96, 255, 242, 0),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -83,7 +83,13 @@ class AppConfigs {
     end: Alignment.bottomRight,
   );
 
-  static TextStyle selectionStageCardTextStyle = const TextStyle(
+  static TextStyle selectionStageCardBackTextStyle = GoogleFonts.radioCanada(
+      textStyle: const TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  ));
+
+  static TextStyle selectionStageImposterCardTextStyle = const TextStyle(
     fontFamily: 'ITCBenguiat',
     fontSize: 20,
     fontWeight: FontWeight.bold,

@@ -17,7 +17,7 @@ class PopupDropdownList<T> extends StatelessWidget {
     return Center(
       child: Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Colors.blue.shade200,
+          canvasColor: const Color.fromARGB(255, 52, 120, 54),
         ),
         child: DropdownButton<T>(
           value: value,

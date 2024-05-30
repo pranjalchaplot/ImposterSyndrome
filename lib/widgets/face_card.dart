@@ -30,8 +30,6 @@ class FaceCard extends StatefulWidget {
 }
 
 class _FaceCardState extends State<FaceCard> {
-  var cardGradient = AppConfigs;
-
   Widget getMainWidget(
       String playerName, bool isImposter, GameStageEnum currentStage) {
     if (currentStage == GameStageEnum.selectionStage) {
@@ -67,6 +65,19 @@ class _FaceCardState extends State<FaceCard> {
           ),
         );
       }
+
+      if (isImposter) {
+        return Text(
+          widget._faceText,
+          style: AppConfigs.selectionStageImposterCardTextStyle,
+          textAlign: TextAlign.center,
+        );
+      }
+      return Text(
+        widget._faceText,
+        style: AppConfigs.selectionStageCardBackTextStyle,
+        textAlign: TextAlign.center,
+      );
     } else if (currentStage == GameStageEnum.playStage) {
       if (widget._isFrontFace) {
         return Column(
@@ -107,7 +118,7 @@ class _FaceCardState extends State<FaceCard> {
 
     return Text(
       widget._faceText,
-      style: AppConfigs.selectionStageCardTextStyle,
+      style: AppConfigs.selectionStageFrontCardTextStyle,
       textAlign: TextAlign.center,
     );
   }

@@ -192,7 +192,7 @@ class GameDialogs {
                         });
                       }
                     },
-                    items: GameData.roundLengthOptions()
+                    items: GameData.getRoundLengthOptions()
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,

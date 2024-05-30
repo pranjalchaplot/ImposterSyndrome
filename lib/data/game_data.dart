@@ -32,7 +32,13 @@ class GameData {
     return _categories;
   }
 
-  static List<String> roundLengthOptions() {
+  static List<String> getRoundLengthOptions() {
     return _roundLengthOptions;
+  }
+
+  static List<String> getItemsListByCategory(String gameCategory) {
+    return _categoriesData.category
+        .firstWhere((item) => item.name == gameCategory)
+        .data;
   }
 }
