@@ -5,6 +5,11 @@ class AppConfigs {
   static const String imposterString = "IMPOSTER";
   static const String teamNameString = "CREWMATE";
 
+  static const String gameName = "Imposter Syndrome";
+  static const String gameDataPath = 'lib/data/game_data.json';
+
+  static const String aboutGame = 'About Game';
+
   static const int playerLobbyMinSize = 4;
   static const int playerLobbyMaxSize = 10;
 

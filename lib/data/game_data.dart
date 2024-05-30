@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:imposter_syndrome_game/app_configs.dart';
-import 'package:imposter_syndrome_game/models/game_data_vm.dart';
+import '../app_configs.dart';
+import '../models/game_data_vm.dart';
 
 class GameData {
   static final List<int> _playerLobbyStrength = List<int>.generate(
@@ -16,7 +16,7 @@ class GameData {
   static late GameDataVM _categoriesData;
 
   static Future<void> loadData() async {
-    final jsonData = await rootBundle.loadString('lib/data/game_data.json');
+    final jsonData = await rootBundle.loadString(AppConfigs.gameDataPath);
     final jsonMap = jsonDecode(jsonData);
     _categoriesData = GameDataVM.fromJson(jsonMap);
     _categories =
