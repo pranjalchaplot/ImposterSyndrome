@@ -8,8 +8,12 @@ import '../screens/off_play.dart';
 import '../widgets/popup_dropdown_list.dart';
 
 class GameDialogs {
-  static void showGameEndDialog(BuildContext context, bool imposterWon,
-      String answer, String imposterPlayerName) {
+  static void showGameEndDialog(
+    BuildContext context,
+    bool imposterWon,
+    String answer,
+    String imposterPlayerName,
+  ) {
     Future.delayed(AppConfigs.popupDisplayDelay, () {
       showDialog(
         context: context,
@@ -349,7 +353,7 @@ class GameDialogs {
                 const SizedBox(height: 10),
                 const Text(
                   '1. Get a group of friends (Hardest Part!).\n2. Press Play, Choose the number of players, category. \n3. Each player privately selects a card, sees what is written and clicks again to fold it back. \n4. All players will have same thing written except one (Imposter). \n5. Each round all player discuss to vote out someone and that player\'s card is selected. \n6. Game continues either till imposter is eliminated or only 2 players (including imposter is remaining)',
-                  style: AppConfigs.popUpDisplayMenuTS,
+                  style: AppConfigs.popUpDisplayButtonTS,
                 ),
                 const SizedBox(height: 20),
                 TextButton(

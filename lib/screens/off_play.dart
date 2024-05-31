@@ -95,7 +95,7 @@ class _OffPlayState extends State<OffPlay> {
             confettiController: confettiController,
             blastDirection: pi / 2,
             blastDirectionality: BlastDirectionality.explosive,
-            numberOfParticles: 69,
+            numberOfParticles: 20,
             emissionFrequency: 0.069,
           )
         ],

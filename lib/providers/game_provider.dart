@@ -17,6 +17,7 @@ class GameProvider extends ChangeNotifier {
   String roundLength = "";
   String _answer = "";
   bool gameStarted = false;
+  bool imposterWon = false;
   int _imposterCardIndex = 0;
   int selectedCards = 0;
   int eliminatedCards = 0;
@@ -96,7 +97,7 @@ class GameProvider extends ChangeNotifier {
   void _playConfetti() {
     confettiController.play();
     Timer(
-      const Duration(seconds: 5),
+      const Duration(seconds: 3),
       _stopConfetti,
     );
   }
@@ -113,8 +114,14 @@ class GameProvider extends ChangeNotifier {
       _playConfetti();
     });
 
+    imposterWon = !isImposter;
+
     GameDialogs.showGameEndDialog(
-        context, !isImposter, answer, gameCards[imposterCardIndex].playerName);
+      context,
+      imposterWon,
+      answer,
+      gameCards[imposterCardIndex].playerName,
+    );
   }
 
   void handleRoundEnd(BuildContext context, int index, bool isImposter,
@@ -126,6 +133,25 @@ class GameProvider extends ChangeNotifier {
       GameDialogs.showNextRoundDialog(context, startTimer, postElimination);
     }
   }
+
+  // Future<void> shareGameResult() async {
+  //   List<String> allPlayerNames =
+  //       gameCards.map((item) => item.playerName).toList();
+
+  //   String shareableText = Helper.getShareableText(
+  //     imposterWon,
+  //     imposterCardIndex,
+  //     allPlayerNames,
+  //   );
+
+  //   final result = await Share.share(
+  //     shareableText,
+  //   );
+
+  //   if (result.status == ShareResultStatus.success) {
+  //     //print('Thank you for sharing my website!');
+  //   }
+  // }
 
   void handleGameCardVoting(
       BuildContext context, int index, Function(GameProvider) postElimination) {
