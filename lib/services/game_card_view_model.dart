@@ -116,6 +116,8 @@ class _GameCardVMState extends State<GameCardVM> {
         if (_isCardSelected) {
           return AppConfigs.lockedCardGradientColor;
         }
+
+        return AppConfigs.playCardBackGradientColor;
       } else {
         if (widget.isImposterCard) {
           return AppConfigs.imposterCardGradientColor;

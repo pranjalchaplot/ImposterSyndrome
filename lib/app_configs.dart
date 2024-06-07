@@ -53,6 +53,16 @@ class AppConfigs {
     tileMode: TileMode.clamp,
   );
 
+  static LinearGradient playCardBackGradientColor = const LinearGradient(
+    colors: [
+      Color.fromARGB(144, 0, 0, 0),
+      Color.fromARGB(144, 0, 0, 0),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    tileMode: TileMode.clamp,
+  );
+
   static LinearGradient viewCardGradientColor = const LinearGradient(
     colors: [
       Color.fromARGB(172, 229, 255, 0),
