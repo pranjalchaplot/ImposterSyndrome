@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppConfigs {
+  static const String hiveBoxName = "localStorage";
+
   static const String imposterString = "IMPOSTER";
   static const String teamNameString = "CREWMATE";
 
@@ -10,8 +12,10 @@ class AppConfigs {
 
   static const String aboutGame = 'About Game';
 
-  static const int playerLobbyMinSize = 4;
-  static const int playerLobbyMaxSize = 10;
+  static int playerLobbyMinSize = 4;
+  static int playerLobbyMaxSize = 15;
+
+  static String selectedCategory = "Celebs";
 
   static const EdgeInsetsGeometry gridPadding = EdgeInsets.all(15.0);
   static const SliverGridDelegateWithFixedCrossAxisCount gridDelegate =

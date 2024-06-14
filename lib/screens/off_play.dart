@@ -16,12 +16,14 @@ class OffPlay extends StatefulWidget {
   final int numberOfPlayers;
   final String category;
   final String roundLength;
+  final GameProvider gameProvider;
 
   const OffPlay({
     super.key,
     required this.numberOfPlayers,
     required this.category,
     required this.roundLength,
+    required this.gameProvider,
   });
 
   @override
@@ -35,15 +37,25 @@ class _OffPlayState extends State<OffPlay> {
   @override
   void initState() {
     super.initState();
-    _gameProvider = GameProvider();
+    _gameProvider = widget.gameProvider;
     _gameProvider.initializeGame(widget.numberOfPlayers, widget.category);
     _gameProvider.roundLength = widget.roundLength;
     _gameProvider.confettiController = confettiController;
+    _storeLocalGameSettings();
+  }
+
+  void _storeLocalGameSettings() {
+    _gameProvider.sharedPreferences
+        .setInt('playerLobbyMinSize', widget.numberOfPlayers);
+    _gameProvider.sharedPreferences
+        .setString('selectedCategory', widget.category);
+
+    _gameProvider.lobbySize = widget.numberOfPlayers;
+    _gameProvider.selectedCategory = widget.category;
   }
 
   @override
   void dispose() {
-    _gameProvider.dispose();
     confettiController.dispose();
     super.dispose();
   }

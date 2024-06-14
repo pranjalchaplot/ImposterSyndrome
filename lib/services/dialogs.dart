@@ -128,13 +128,14 @@ class GameDialogs {
     );
   }
 
-  static void showOfflinePlayDialog(BuildContext context) {
+  static void showOfflinePlayDialog(
+      BuildContext context, GameProvider gameProvider) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // Set these defaults in app configs
-        int selectedPlayers = AppConfigs.playerLobbyMinSize;
-        String selectedCategory = 'Celebs';
+        int selectedPlayers = gameProvider.lobbySize;
+        String selectedCategory = gameProvider.selectedCategory;
         String selectedRoundLength = '30 seconds';
 
         return StatefulBuilder(
@@ -228,6 +229,7 @@ class GameDialogs {
                                 numberOfPlayers: selectedPlayers,
                                 category: selectedCategory,
                                 roundLength: selectedRoundLength,
+                                gameProvider: gameProvider,
                               ),
                             ),
                           );

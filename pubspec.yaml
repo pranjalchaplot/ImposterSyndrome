@@ -39,6 +39,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   google_fonts: ^6.2.1
   confetti: ^0.7.0
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +71,6 @@ flutter:
   assets:
     - assets/images/
     - lib/data/game_data.json
-  
 
   #   - images/a_dot_ham.jpeg
 

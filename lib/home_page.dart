@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../data/game_data.dart';
 import '../helpers/helper.dart';
 import './app_configs.dart';
 import './services/dialogs.dart';
+import 'providers/game_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,10 +14,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late GameProvider _gameProvider;
+
   @override
   void initState() {
     super.initState();
+    _gameProvider = GameProvider();
     _initializeData();
+    _getLocalGameSettings();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _gameProvider.dispose();
+  }
+
+  @override
+  void didUpdateWidget(HomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _getLocalGameSettings();
+  }
+
+  Future<void> _getLocalGameSettings() async {
+    _gameProvider.sharedPreferences = await SharedPreferences.getInstance();
+
+    var playerLobbyMinSize =
+        _gameProvider.sharedPreferences.getInt('playerLobbyMinSize');
+    var selectedCategory =
+        _gameProvider.sharedPreferences.getString('selectedCategory');
+
+    if (playerLobbyMinSize != null) {
+      _gameProvider.lobbySize = playerLobbyMinSize;
+    }
+
+    if (selectedCategory != null) {
+      _gameProvider.selectedCategory = selectedCategory;
+    }
   }
 
   Future<void> _initializeData() async {
@@ -39,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Helper.getHomeScreenButton(
-              () => GameDialogs.showOfflinePlayDialog(context),
+              () => GameDialogs.showOfflinePlayDialog(
+                context,
+                _gameProvider,
+              ),
               "Play Offline",
               Icons.downloading,
             ),
