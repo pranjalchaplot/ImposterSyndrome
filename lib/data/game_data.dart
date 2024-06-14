@@ -5,7 +5,7 @@ import '../models/game_data_vm.dart';
 
 class GameData {
   static final List<int> _playerLobbyStrength = List<int>.generate(
-    AppConfigs.playerLobbyMaxSize - AppConfigs.playerLobbyMinSize,
+    AppConfigs.playerLobbyMaxSize - AppConfigs.playerLobbyMinSize + 1,
     (int index) {
       return index + AppConfigs.playerLobbyMinSize;
     },

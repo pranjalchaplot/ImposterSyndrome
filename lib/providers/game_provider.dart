@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../app_configs.dart';
 import '../models/enums/game_stage_enum.dart';
 import '../models/game_card.dart';
@@ -11,6 +12,8 @@ import '../services/game_card_view_model.dart';
 
 class GameProvider extends ChangeNotifier {
   GameStageEnum _currentGameStage = GameStageEnum.selectionStage;
+  String selectedCategory = AppConfigs.selectedCategory;
+  int lobbySize = AppConfigs.playerLobbyMinSize;
   Timer? _timer;
   int _secondsRemaining = 0;
   List<GameCard> _gameCards = [];
@@ -22,6 +25,7 @@ class GameProvider extends ChangeNotifier {
   int selectedCards = 0;
   int eliminatedCards = 0;
   ConfettiController confettiController = ConfettiController();
+  late SharedPreferences sharedPreferences;
 
   bool _lockCards = false;
   int _currentSelectedCardIndex = 0;

@@ -10,8 +10,10 @@ class AppConfigs {
 
   static const String aboutGame = 'About Game';
 
-  static const int playerLobbyMinSize = 4;
-  static const int playerLobbyMaxSize = 10;
+  static int playerLobbyMinSize = 4;
+  static int playerLobbyMaxSize = 15;
+
+  static String selectedCategory = "Celebs";
 
   static const EdgeInsetsGeometry gridPadding = EdgeInsets.all(15.0);
   static const SliverGridDelegateWithFixedCrossAxisCount gridDelegate =
