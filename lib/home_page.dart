@@ -30,12 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _gameProvider.dispose();
   }
 
-  @override
-  void didUpdateWidget(HomeScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _getLocalGameSettings();
-  }
-
   Future<void> _getLocalGameSettings() async {
     _gameProvider.sharedPreferences = await SharedPreferences.getInstance();
 

@@ -25,7 +25,6 @@ class GameProvider extends ChangeNotifier {
   int selectedCards = 0;
   int eliminatedCards = 0;
   ConfettiController confettiController = ConfettiController();
-  // Box hiveBox = Hive.box(AppConfigs.hiveBoxName);
   late SharedPreferences sharedPreferences;
 
   bool _lockCards = false;
