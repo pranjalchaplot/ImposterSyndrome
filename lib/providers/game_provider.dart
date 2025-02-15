@@ -95,6 +95,7 @@ class GameProvider extends ChangeNotifier {
 
   void handleGameStageChange(GameStageEnum nextGameStage) {
     _currentGameStage = nextGameStage;
+    selectedCards = 0;
     notifyListeners();
   }
 
@@ -107,7 +108,11 @@ class GameProvider extends ChangeNotifier {
   }
 
   void _stopConfetti() {
-    confettiController.stop();
+    try {
+      confettiController.stop();
+    } catch (e) {
+      // Handle any errors that might occur during stopping the confetti
+    }
   }
 
   void handleGameEnd(BuildContext context, int index, bool isImposter) {
@@ -198,8 +203,7 @@ class GameProvider extends ChangeNotifier {
             : "$playerName is Not The ${AppConfigs.imposterString}";
         break;
       case GameStageEnum.endStage:
-      default:
-        break;
+      break;
     }
     gameCardVM = GameCardVM(
       cardIndex: index,
