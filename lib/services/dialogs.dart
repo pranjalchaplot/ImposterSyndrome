@@ -15,6 +15,7 @@ class GameDialogs {
     String imposterPlayerName,
   ) {
     Future.delayed(AppConfigs.popupDisplayDelay, () {
+      if (!context.mounted) return;
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -66,6 +67,7 @@ class GameDialogs {
       Function(GameProvider) postElimination) {
     final gameProvider = context.read<GameProvider>();
     Future.delayed(AppConfigs.popupDisplayDelay, () {
+      if (!context.mounted) return;
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -138,7 +140,7 @@ class GameDialogs {
         String selectedCategory = gameProvider.selectedCategory;
         String selectedRoundLength = '30 seconds';
 
-        return StatefulBuilder(
+        return    StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return ShowDialogBox(
               showDialogChild: Column(
@@ -261,7 +263,7 @@ class GameDialogs {
           backgroundColor: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.8),
+                color: const Color.fromRGBO(255, 255, 255, 0.8),
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(20),
