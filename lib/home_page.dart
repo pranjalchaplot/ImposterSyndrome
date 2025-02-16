@@ -80,6 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
               "How To Play",
               Icons.question_mark_outlined,
             ),
+            Helper.getHomeScreenButton(
+                () =>
+                    GameDialogs.showAddCustomDataDialog(context, _gameProvider),
+                "Add Cards",
+                Icons.add_circle_outline),
           ],
         ),
       ),

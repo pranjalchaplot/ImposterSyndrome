@@ -20,6 +20,13 @@ class GameDataVM {
       roundsLengthOption: roundsLengthOption,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'category': category.map((category) => category.toJson()).toList(),
+      'roundsLengthOption': roundsLengthOption,
+    };
+  }
 }
 
 class Category {
@@ -36,5 +43,12 @@ class Category {
       name: json['name'],
       data: List<String>.from(json['data']),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'data': data,
+    };
   }
 }

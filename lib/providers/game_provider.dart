@@ -50,6 +50,8 @@ class GameProvider extends ChangeNotifier {
     });
 
     _currentGameStage = GameStageEnum.selectionStage;
+
+    selectedCards = 0;
     notifyListeners();
   }
 
@@ -68,6 +70,7 @@ class GameProvider extends ChangeNotifier {
   bool handleCompleteCardSelection() {
     selectedCards++;
     if (selectedCards == gameCards.length) {
+      selectedCards = 0;
       return true;
     }
     return false;
@@ -95,7 +98,6 @@ class GameProvider extends ChangeNotifier {
 
   void handleGameStageChange(GameStageEnum nextGameStage) {
     _currentGameStage = nextGameStage;
-    selectedCards = 0;
     notifyListeners();
   }
 
