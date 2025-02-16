@@ -130,6 +130,231 @@ class GameDialogs {
     );
   }
 
+  static void showAddCustomDataDialog(
+      BuildContext context, GameProvider gameProvider) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        final TextEditingController dataController = TextEditingController();
+        final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+        String selectedCategory = gameProvider.selectedCategory;
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return ShowDialogBox(
+              showDialogChild: Container(
+                padding: const EdgeInsets.all(20),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Add Custom Data',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: PopupDropdownList<String>(
+                              value: selectedCategory,
+                              onChanged: (String? newValue) {
+                                if (newValue != null) {
+                                  setState(() {
+                                    selectedCategory = newValue;
+                                  });
+                                }
+                              },
+                              items: GameData.getCategories()
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: AppConfigs.popUpDisplayMenuTS,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.add_box,
+                              color: Colors.blue,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  final TextEditingController
+                                      newCategoryController =
+                                      TextEditingController();
+                                  final TextEditingController
+                                      newCardDataController =
+                                      TextEditingController();
+                                  final GlobalKey<FormState> newFormKey =
+                                      GlobalKey<FormState>();
+
+                                  return ShowDialogBox(
+                                    showDialogChild: Container(
+                                      padding: const EdgeInsets.all(20),
+                                      child: Form(
+                                        key: newFormKey,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Text(
+                                              'Add New Category & Card',
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 101, 155, 198),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            TextFormField(
+                                              controller: newCategoryController,
+                                              decoration: const InputDecoration(
+                                                labelText: 'New Category',
+                                                labelStyle: AppConfigs
+                                                    .popUpDisplayButtonTS,
+                                                border: OutlineInputBorder(),
+                                              ),
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.trim().isEmpty) {
+                                                  return 'Please Enter New Category';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            const SizedBox(height: 10),
+                                            TextFormField(
+                                              controller: newCardDataController,
+                                              decoration: const InputDecoration(
+                                                labelText: 'Card Data',
+                                                labelStyle: AppConfigs
+                                                    .popUpDisplayButtonTS,
+                                                border: OutlineInputBorder(),
+                                              ),
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.trim().isEmpty) {
+                                                  return 'Please Enter Card Data';
+                                                }
+                                                return null;
+                                              },
+                                            ),
+                                            const SizedBox(height: 20),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                    showAddCustomDataDialog(
+                                                        context, gameProvider);
+                                                  },
+                                                  child: const Text(
+                                                    'Cancel',
+                                                    style: AppConfigs
+                                                        .popUpDisplayButtonTS,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 10),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    if (newFormKey.currentState!
+                                                        .validate()) {
+                                                      String newCategory =
+                                                          newCategoryController
+                                                              .text;
+                                                      String newCardData =
+                                                          newCardDataController
+                                                              .text;
+                                                      GameData.addCategory(
+                                                          newCategory);
+                                                      GameData.addData(
+                                                          newCategory,
+                                                          newCardData);
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }
+                                                  },
+                                                  child: const Text('Submit'),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: dataController,
+                        decoration: const InputDecoration(
+                          labelText: 'Custom Data',
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please Enter Custom Data';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              'Cancel',
+                              style: AppConfigs.popUpDisplayButtonTS,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                String customData = dataController.text;
+                                GameData.addData(selectedCategory, customData);
+                                Navigator.of(context).pop();
+                              }
+                            },
+                            child: const Text('Submit'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+
   static void showOfflinePlayDialog(
       BuildContext context, GameProvider gameProvider) {
     showDialog(
@@ -140,7 +365,7 @@ class GameDialogs {
         String selectedCategory = gameProvider.selectedCategory;
         String selectedRoundLength = '30 seconds';
 
-        return    StatefulBuilder(
+        return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return ShowDialogBox(
               showDialogChild: Column(
@@ -263,7 +488,7 @@ class GameDialogs {
           backgroundColor: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
-                color: const Color.fromRGBO(255, 255, 255, 0.8),
+              color: const Color.fromRGBO(255, 255, 255, 0.8),
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(20),
