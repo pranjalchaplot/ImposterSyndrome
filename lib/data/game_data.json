@@ -12,7 +12,17 @@
         "Deepika Padukone",
         "Cristiano Ronaldo",
         "Elon Musk",
-        "Bill Gates"
+        "Bill Gates",
+        "Taylor Swift",
+        "Priyanka Chopra",
+        "Brad Pitt",
+        "Angelina Jolie",
+        "Aishwarya Rai",
+        "Leonardo DiCaprio",
+        "Tom Cruise",
+        "Selena Gomez",
+        "Dwayne Johnson",
+        "Beyoncé"
       ]
     },
     {
@@ -27,7 +37,17 @@
         "The Godfather",
         "The Shawshank Redemption",
         "Forrest Gump",
-        "The Dark Knight"
+        "The Dark Knight",
+        "Dangal",
+        "Avengers: Endgame",
+        "Titanic",
+        "Baahubali",
+        "Jurassic Park",
+        "The Matrix",
+        "Interstellar",
+        "KGF: Chapter 1",
+        "La La Land",
+        "Slumdog Millionaire"
       ]
     },
     {
@@ -42,7 +62,17 @@
         "London",
         "Paris",
         "Tokyo",
-        "Sydney"
+        "Sydney",
+        "Delhi",
+        "Dubai",
+        "Berlin",
+        "Singapore",
+        "Los Angeles",
+        "Rome",
+        "Madrid",
+        "Istanbul",
+        "Toronto",
+        "Beijing"
       ]
     },
     {
@@ -57,7 +87,17 @@
         "Golf",
         "Badminton",
         "Boxing",
-        "Cycling"
+        "Cycling",
+        "Volleyball",
+        "Baseball",
+        "Ice Hockey",
+        "Rugby",
+        "Table Tennis",
+        "Archery",
+        "Wrestling",
+        "Skateboarding",
+        "Surfing",
+        "Skiing"
       ]
     },
     {
@@ -72,7 +112,17 @@
         "Hospital",
         "School",
         "University",
-        "Museum"
+        "Museum",
+        "Restaurant",
+        "Library",
+        "Beach",
+        "Hotel",
+        "Supermarket",
+        "Café",
+        "Police Station",
+        "Fire Station",
+        "Temple",
+        "Church"
       ]
     }
   ],
