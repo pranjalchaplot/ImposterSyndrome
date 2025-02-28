@@ -1,0 +1,2 @@
+D:/Development/Repos/ImposterSyndrome/android/app/.cxx/RelWithDebInfo/22524z31/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/Development/Repos/ImposterSyndrome/android/app/.cxx/RelWithDebInfo/22524z31/arm64-v8a/CMakeFiles/rebuild_cache.dir
